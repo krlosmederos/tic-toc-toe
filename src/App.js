@@ -1,23 +1,36 @@
-import logo from './logo.svg';
+import React, { useState } from 'react';
 import './App.css';
+import PlayContainer from './components/PlayContainer';
+import RegisterContainer from './components/RegisterContainer';
 
 function App() {
+
+  // objeto, funcion que modifica el objeto
+  const [player, setPlayer] = useState({
+    playerOne: "",
+    playerTwo: "",
+    playing: false,
+    firstInPlay: "",
+  });
+
+  const handleBeginPlayClick = (playerOne, playerTwo, firstInPlay) => {
+    if (playerOne.trim() !== '' && playerTwo.trim() !== '') {
+      setPlayer({
+        playerOne: playerOne,
+        playerTwo: playerTwo,
+        playing: true,
+        firstInPlay: firstInPlay,
+      });
+    }
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="app">
+      <h1>Tic Tac Toe in React.js</h1>
+      { player.playing
+        ? <PlayContainer player={player} />
+        : <RegisterContainer handleBeginPlayClick={handleBeginPlayClick} />
+      }
     </div>
   );
 }
