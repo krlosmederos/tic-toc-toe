@@ -15,11 +15,11 @@ const isWinner = (arrSol) => {
 
 const Game = (props) => {
 
-  const { player, handleInPlay } = props;
+  const { player, handleInPlay, handleWinner } = props;
   const [currentInPlay, setCurrentInPlay] = useState(player.firstInPlay);
   const [solZero, setSolZero] = useState([0, 0, 0, 0, 0, 0, 0, 0, 0]);
   const [solEquis, setSolEquis] = useState([0, 0, 0, 0, 0, 0, 0, 0, 0]);
-  const [winner, setWinner] = useState("");
+  const [activePlay, setActivePlay] = useState(true);
 
   const handleBoxClick = (pos) => {
     if (currentInPlay === 'x') {
@@ -29,7 +29,8 @@ const Game = (props) => {
       setSolEquis(newSolArr);
       // Reviso si es una jugada ganadora
       if (isWinner(newSolArr)) {
-        console.log("gano PlayerOne")
+        handleWinner(player.playerOne);
+        setActivePlay(false);
       }
       else {
         // En caso que no sea ganadora, turno del proximo jugador
@@ -42,7 +43,8 @@ const Game = (props) => {
       newSolArr[pos - 1] = 1;
       setSolZero(newSolArr)
       if (isWinner(newSolArr)) {
-        console.log("gano PlayerTwo")
+        handleWinner(player.playerTwo);
+        setActivePlay(false);
       }
       setCurrentInPlay('x');
       handleInPlay(player.playerOne + ': x');
@@ -51,15 +53,15 @@ const Game = (props) => {
 
   return (
     <div className="grid-game" >
-      <Box position={1} currentInPlay={currentInPlay} handleBoxClick={handleBoxClick} />
-      <Box position={2} currentInPlay={currentInPlay} handleBoxClick={handleBoxClick} />
-      <Box position={3} currentInPlay={currentInPlay} handleBoxClick={handleBoxClick} />
-      <Box position={4} currentInPlay={currentInPlay} handleBoxClick={handleBoxClick} />
-      <Box position={5} currentInPlay={currentInPlay} handleBoxClick={handleBoxClick} />
-      <Box position={6} currentInPlay={currentInPlay} handleBoxClick={handleBoxClick} />
-      <Box position={7} currentInPlay={currentInPlay} handleBoxClick={handleBoxClick} />
-      <Box position={8} currentInPlay={currentInPlay} handleBoxClick={handleBoxClick} />
-      <Box position={9} currentInPlay={currentInPlay} handleBoxClick={handleBoxClick} />
+      <Box position={1} currentInPlay={currentInPlay} handleBoxClick={handleBoxClick} activePlay={activePlay} />
+      <Box position={2} currentInPlay={currentInPlay} handleBoxClick={handleBoxClick} activePlay={activePlay} />
+      <Box position={3} currentInPlay={currentInPlay} handleBoxClick={handleBoxClick} activePlay={activePlay} />
+      <Box position={4} currentInPlay={currentInPlay} handleBoxClick={handleBoxClick} activePlay={activePlay} />
+      <Box position={5} currentInPlay={currentInPlay} handleBoxClick={handleBoxClick} activePlay={activePlay} />
+      <Box position={6} currentInPlay={currentInPlay} handleBoxClick={handleBoxClick} activePlay={activePlay} />
+      <Box position={7} currentInPlay={currentInPlay} handleBoxClick={handleBoxClick} activePlay={activePlay} />
+      <Box position={8} currentInPlay={currentInPlay} handleBoxClick={handleBoxClick} activePlay={activePlay} />
+      <Box position={9} currentInPlay={currentInPlay} handleBoxClick={handleBoxClick} activePlay={activePlay} />
     </div >
   )
 }

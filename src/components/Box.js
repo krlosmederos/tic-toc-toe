@@ -1,12 +1,12 @@
 import React, { useState } from 'react'
 
 const Box = (props) => {
-  const { position, handleBoxClick, currentInPlay } = props;
+  const { position, handleBoxClick, currentInPlay, activePlay } = props;
 
   const [contentBox, setContentBox] = useState("");
 
   const handleClick = (e) => {
-    if (contentBox === '') {
+    if (contentBox === '' && activePlay) {
       setContentBox(currentInPlay);
       handleBoxClick(e.currentTarget.id);
     }
